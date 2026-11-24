@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>X-GAMES — games you play inside a post</title>
+<meta name="description" content="Mini-games that run inside a post on X. No app, no link out.">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="X-GAMES">
+<meta name="twitter:description" content="Mini-games that run inside a post on X. No app, no link out.">
+<meta name="twitter:image" content="https://winchxyz.github.io/x-games/og.png">
+<meta property="og:title" content="X-GAMES">
+<meta property="og:description" content="Mini-games that run inside a post on X. No app, no link out.">
+<meta property="og:image" content="https://winchxyz.github.io/x-games/og.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg: #000; --ink: #e7e9ea; --dim: #71767b; --line: #2f3336; --card: #0b0c0d; --blue: #1d9bf0;
+    --pad: clamp(18px, 4.4vw, 56px);
+  }
+  * { box-sizing: border-box; margin: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg); color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", Inter, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased; line-height: 1.45;
+  }
+  a { color: inherit; text-decoration: none; }
+
+  /* ---------- top bar ---------- */
+  header {
+    position: sticky; top: 0; z-index: 10;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px var(--pad);
+    background: rgba(0, 0, 0, .72); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--line);
+  }
+  .mark { font-size: 18px; font-weight: 800; letter-spacing: -.02em; }
+  .mark span { color: var(--dim); font-weight: 800; }
+  header nav { display: flex; gap: clamp(14px, 2.4vw, 28px); font-size: 14px; font-weight: 500; color: var(--dim); }
+  header nav a:hover { color: var(--ink); }
+
+  /* ---------- buttons ---------- */
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: .5em;
+    height: 46px; padding: 0 22px; border-radius: 999px;
+    font-size: 15px; font-weight: 700; letter-spacing: -.005em; cursor: pointer;
+    border: 1px solid var(--line); color: var(--ink); background: transparent;
+    transition: background .15s, transform .15s cubic-bezier(.2, .8, .2, 1);
+  }
+  .btn:hover { background: rgba(231, 233, 234, .1); }
+  .btn:active { transform: scale(.97); }
+  .btn.solid { background: var(--ink); color: #0f1419; border-color: transparent; }
+  .btn.solid:hover { background: #fff; }
+  .btn.small { height: 38px; padding: 0 17px; font-size: 14px; }
+
+  /* ---------- hero ---------- */
+  .hero {
+    display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: clamp(28px, 5vw, 80px); align-items: center;
+    padding: clamp(36px, 7vw, 96px) var(--pad) clamp(44px, 7vw, 96px);
+    max-width: 1320px; margin: 0 auto;
+  }
+  h1 { font-size: clamp(40px, 6.6vw, 88px); font-weight: 800; letter-spacing: -.045em; line-height: .98; }
+  h1 em { font-style: normal; color: var(--dim); }
+  .lede { margin-top: clamp(16px, 2vw, 26px); max-width: 30em; font-size: clamp(16px, 1.5vw, 20px); color: var(--dim); }
+  .lede b { color: var(--ink); font-weight: 500; }
+  .cta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: clamp(22px, 2.6vw, 36px); }
+
+  /* a post, with the game running in it */
+  .post { width: 100%; max-width: 520px; justify-self: end; border: 1px solid var(--line); border-radius: 18px; padding: 14px 14px 12px; background: var(--bg); }
+  .who { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; font-size: 15px; }
+  .who i { width: 38px; height: 38px; border-radius: 50%; background: linear-gradient(135deg, #2f3336, #16181c); flex: none; }
+  .who b { font-weight: 700; } .who span { color: var(--dim); }
+  .frame { position: relative; aspect-ratio: 1; border-radius: 16px; overflow: hidden; border: 1px solid var(--line); background: #07080b; }
+  .frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block; }
+  .from { margin-top: 8px; font-size: 13px; color: var(--dim); }
+
+  /* ---------- sections ---------- */
+  section { padding: clamp(40px, 6vw, 84px) var(--pad); border-top: 1px solid var(--line); }
+  .in { max-width: 1208px; margin: 0 auto; }
+  h2 { font-size: clamp(26px, 3.3vw, 42px); font-weight: 800; letter-spacing: -.035em; line-height: 1.05; }
+  .sec-sub { margin-top: 10px; color: var(--dim); font-size: clamp(15px, 1.3vw, 17px); max-width: 38em; }
+
+  .games { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); gap: 18px; margin-top: clamp(22px, 3vw, 38px); }
+  .game { border: 1px solid var(--line); border-radius: 18px; overflow: hidden; background: var(--card); display: flex; flex-direction: column; transition: border-color .2s, transform .25s cubic-bezier(.2, .8, .2, 1); }
+  a.game:hover, .game:hover { border-color: #536471; }
+  .game .shot { aspect-ratio: 1; background: #07080b center / cover no-repeat; border-bottom: 1px solid var(--line); }
+  .game .body { padding: 18px 18px 20px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
+  .game h3 { font-size: 20px; font-weight: 800; letter-spacing: -.025em; }
+  .game p { color: var(--dim); font-size: 15px; }
+  .game .acts { display: flex; gap: 8px; margin-top: auto; padding-top: 14px; }
+  .game.soon { border-style: dashed; background: transparent; }
+  .game.soon .shot { display: grid; place-items: center; background: transparent; color: var(--line); font-size: 64px; font-weight: 800; border-bottom-style: dashed; }
+
+  .facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); gap: clamp(20px, 3vw, 44px); margin-top: clamp(22px, 3vw, 38px); }
+  .facts h3 { font-size: 17px; font-weight: 700; letter-spacing: -.015em; }
+  .facts p { margin-top: 6px; color: var(--dim); font-size: 15px; }
+  .facts .n { font-size: 13px; font-weight: 700; color: var(--dim); font-variant-numeric: tabular-nums; margin-bottom: 10px; }
+
+  pre { margin-top: clamp(22px, 3vw, 34px); padding: 18px 20px; border: 1px solid var(--line); border-radius: 14px; background: var(--card); overflow-x: auto; font: 13px/1.65 ui-monospace, "SF Mono", "Geist Mono", Menlo, monospace; color: #c4c9cc; }
+  pre .k { color: var(--blue); }
+
+  footer { padding: 26px var(--pad) 40px; border-top: 1px solid var(--line); color: var(--dim); font-size: 13px; display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between; }
+  footer a:hover { color: var(--ink); }
+
+  @media (max-width: 860px) {
+    .hero { grid-template-columns: 1fr; }
+    .post { justify-self: start; }
+    header nav a.hide { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <a class="mark" href="#top">X<span>-</span>GAMES</a>
+  <nav>
+    <a href="#games">Games</a>
+    <a class="hide" href="#how">How it works</a>
+    <a class="hide" href="#build">Build one</a>
+    <a href="https://x.com/winchxyz" target="_blank" rel="noopener">@winchxyz</a>
+  </nav>
+</header>
+
+<main id="top">
+  <div class="hero">
+    <div>
+      <h1>Games you play <em>inside a post.</em></h1>
+      <p class="lede">No app. No link out. <b>Open the post, play, keep scrolling.</b> Every game here runs right in the X timeline.</p>
+      <div class="cta">
+        <a class="btn solid" id="heroPost" target="_blank" rel="noopener">Post a game on X</a>
+        <a class="btn" href="#games">See the games</a>
+      </div>
+    </div>
+
+    <div class="post">
+      <div class="who"><i></i><div><b>winch</b> <span>@winchxyz</span></div></div>
+      <div class="frame"><iframe id="demo" title="Free Rip, running the way it does inside a post" allow="fullscreen"></iframe></div>
+      <div class="from">This is the real game, running the way it does in a post.</div>
+    </div>
+  </div>
+
+  <section id="games">
+    <div class="in">
+      <h2>Games</h2>
+      <p class="sec-sub">Post the link. On desktop the game opens inside the post; on a phone it opens full screen without leaving X.</p>
+      <div class="games" id="list"></div>
+    </div>
+  </section>
+
+  <section id="how">
+    <div class="in">
+      <h2>How it works</h2>
+      <div class="facts">
+        <div><div class="n">01</div><h3>A post is the console</h3><p>The game is a web page. X loads it in a frame inside the post, so playing takes no install and no new tab.</p></div>
+        <div><div class="n">02</div><h3>One link per game</h3><p>Anyone can post it. Every post of the link is a playable copy of the game.</p></div>
+        <div><div class="n">03</div><h3>What X allows today</h3><p>Inline play on desktop web, in a square frame. In the mobile apps the same link opens full screen inside X.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="build">
+    <div class="in">
+      <h2>Build one</h2>
+      <p class="sec-sub">Four lines in the page head. A square frame is the largest X will show; anything taller gets cropped and shrunk.</p>
+<pre>&lt;meta name="<span class="k">twitter:card</span>" content="player"&gt;
+&lt;meta name="<span class="k">twitter:player</span>" content="https://your.site/game/"&gt;
+&lt;meta name="<span class="k">twitter:player:width</span>" content="1080"&gt;
+&lt;meta name="<span class="k">twitter:player:height</span>" content="1080"&gt;
+&lt;meta name="<span class="k">twitter:image</span>" content="https://your.site/game/preview.png"&gt;</pre>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <span>X-GAMES is an independent project. Not affiliated with X Corp.</span>
+  <a href="https://x.com/winchxyz" target="_blank" rel="noopener">Made by @winchxyz</a>
+</footer>
+
+<script>
+// Add a game: one entry here. "url" is the page that carries the X player card.
+const GAMES = [
+  {
+    name: 'Free Rip',
+    line: 'Tear open a pack of real cards. Foil, holo and secret rares, five cards a pack.',
+    url: 'https://winchxyz.github.io/x-rip-card/',
+    shot: 'https://winchxyz.github.io/x-rip-card/preview.png',
+    post: 'ripping packs inside a post',
+  },
+];
+const intent = g => 'https://x.com/intent/post?text=' + encodeURIComponent(g.post) + '&url=' + encodeURIComponent(g.url);
+
+document.getElementById('demo').src = GAMES[0].url;
+document.getElementById('heroPost').href = intent(GAMES[0]);
+document.getElementById('list').innerHTML = GAMES.map(g => `
+  <div class="game">
+    <a class="shot" href="${g.url}" target="_blank" rel="noopener" style="background-image:url(${g.shot})" aria-label="${g.name}"></a>
+    <div class="body">
+      <h3>${g.name}</h3>
+      <p>${g.line}</p>
+      <div class="acts">
+        <a class="btn solid small" href="${intent(g)}" target="_blank" rel="noopener">Post on X</a>
+        <a class="btn small" href="${g.url}" target="_blank" rel="noopener">Play here</a>
+      </div>
+    </div>
+  </div>`).join('') + `
+  <div class="game soon">
+    <div class="shot">+</div>
+    <div class="body"><h3>Next game</h3><p>In the works. New games land here as they ship.</p></div>
+  </div>`;
+</script>
+</body>
+</html>
